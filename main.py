@@ -11,10 +11,10 @@ from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE,
 pygame.init()
 pygame.mixer.init()  ## For sound
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Space Shooter")
+pygame.display.set_caption("GoodLife")
 
 sprites = pygame.sprite.Group()
-player = Player1(screen, RED, 0, 0)
+player = Player1(screen, RED, 0, 0, control=True )
 sprites.add(player)
 player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0)
 sprites.add(player)
