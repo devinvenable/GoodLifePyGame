@@ -1,6 +1,6 @@
-import pygame
+import pygame, math
 from pygame.sprite import Sprite
-from config import WHITE, PLAYER_SIZE
+from config import WHITE, PLAYER_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Player(Sprite):
     def __init__(self, screen, color, x, y, **kwargs ):
@@ -31,19 +31,33 @@ class Player(Sprite):
         self.y = y
         self.angle = 0
 
+    def update_movement(self ):
+        radians = math.radians(self.angle)
+        speed = 1
+        y = self.y + (speed * math.cos(radians))
+        x = self.x + (speed * math.sin(radians))
+
+        if y + PLAYER_SIZE <= SCREEN_HEIGHT and y >= 0:
+            self.y = y
+        if x + PLAYER_SIZE <= SCREEN_WIDTH and x >= 0:
+            self.x = x
 
     def update(self):
 
         if self.control:
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_j] or pressed[pygame.K_LEFT]:
-                self.x = self.x-1
+                if self.x >= 0:
+                    self.x = self.x-1
             if pressed[pygame.K_l] or pressed[pygame.K_RIGHT]:
-                self.x = self.x+1
+                if self.x + PLAYER_SIZE <= SCREEN_WIDTH:
+                    self.x = self.x+1
             if pressed[pygame.K_i] or pressed[pygame.K_UP]:
                 self.angle += 1 % 360
             if pressed[pygame.K_COMMA] or pressed[pygame.K_DOWN]:
                 self.angle -= 1 % 360
+            if pressed[pygame.K_SPACE]:
+                self.update_movement()
 
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.screen.blit(self.image, (self.x, self.y))
