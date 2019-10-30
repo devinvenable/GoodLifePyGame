@@ -4,6 +4,7 @@ from player_objects.Player2 import Player2
 from player_objects.Player3 import Player3
 from player_objects.Player4 import Player4
 from player_objects.Player5 import Player5
+from player_objects.Player6 import Player6
 from obstacles.Bomb import Bomb
 
 from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE,
@@ -26,6 +27,8 @@ sprites.add(player)
 player = Player4(screen, BLUE_GREEN, 0, SCREEN_HEIGHT-PLAYER_SIZE)
 sprites.add(player)
 player = Player5(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, SCREEN_HEIGHT-PLAYER_SIZE)
+sprites.add(player)
+player = Player6(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, (SCREEN_HEIGHT-PLAYER_SIZE)/2)
 sprites.add(player)
 
 bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
