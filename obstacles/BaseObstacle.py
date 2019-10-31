@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from config import WHITE, PLAYER_SIZE
+from GoodLifePyGame.config import WHITE, PLAYER_SIZE
 
 class BaseObstacle(Sprite):
     def __init__(self, screen, color, x, y, **kwargs ):
@@ -8,6 +8,7 @@ class BaseObstacle(Sprite):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
         self.screen = screen
+        self.color = color
 
         # Create an image of the block, and fill it with a color.
         # This could also be an image loaded from the disk.

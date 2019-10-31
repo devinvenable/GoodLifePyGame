@@ -13,3 +13,4 @@ class Bomb(Player):
         self.original_image = pygame.image.load("images/bomb.gif").convert()
         self.original_image = pygame.transform.scale(self.original_image, (PLAYER_SIZE, PLAYER_SIZE))
         self.image = self.original_image
+
