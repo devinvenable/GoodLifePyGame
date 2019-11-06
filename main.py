@@ -16,23 +16,29 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("GoodLife")
 
 sprites = pygame.sprite.Group()
+enemies = pygame.sprite.Group()
 
 player = Player1(screen, RED, 0, 0, control=True)
 sprites.add(player)
 
 player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
 sprites.add(player)
+
 player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2 )
 sprites.add(player)
+
 player = Player4(screen, BLUE_GREEN, 0, SCREEN_HEIGHT-PLAYER_SIZE)
 sprites.add(player)
+
 player = Player5(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, SCREEN_HEIGHT-PLAYER_SIZE)
 sprites.add(player)
+
 player = Player6(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, (SCREEN_HEIGHT-PLAYER_SIZE)/2)
 sprites.add(player)
 
 bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites.add(bomb)
+enemies.add(bomb)
 
 running = True
 while running:
