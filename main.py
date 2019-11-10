@@ -48,6 +48,9 @@ server = 'http://10.89.171.108:5000'
 
 clock = pygame.time.Clock()
 
+# Check once per every 60 frames for other player movement
+remote_check = 0
+
 running = True
 while running:
 
@@ -68,7 +71,10 @@ while running:
 
     pygame.display.flip()
 
-    if server:
+    remote_check += 1
+
+    if server and remote_check % 60:
+        remote_check=0
         params = data={'player': active_player.id(), 'x': active_player.x, 'y': active_player.y}
         result = requests.get( server, params )
         if result:
