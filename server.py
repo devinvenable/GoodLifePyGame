@@ -20,10 +20,10 @@ def hello():
 
         players[player] = {'addr': request.remote_addr, 'x':x, 'y':y}
 
-    print(players)
+    #print(players)
     others = {i: players[i] for i in players if i != player}
-    print(others)
+    #print(others)
     return jsonify(others)
 
 if __name__ == "__main__":
-   app.run()
+   app.run(host='10.89.171.108')

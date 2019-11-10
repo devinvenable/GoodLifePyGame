@@ -1,5 +1,4 @@
 import pygame, math
-import requests
 from pygame.sprite import Sprite
 from config import WHITE, PLAYER_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -28,6 +27,7 @@ class Player(Sprite):
         self.initial_y = self.y = y
         self.angle = 0
         self.rect = pygame.Rect((self.x, self.y),(PLAYER_SIZE, PLAYER_SIZE))
+        self.speed = 6
 
     def id(self):
         return type(self).__name__
@@ -40,9 +40,8 @@ class Player(Sprite):
 
     def update_movement(self ):
         radians = math.radians(self.angle)
-        speed = 1
-        y = self.y + (speed * math.cos(radians))
-        x = self.x + (speed * math.sin(radians))
+        y = self.y + (self.speed * math.cos(radians))
+        x = self.x + (self.speed * math.sin(radians))
 
         if y + PLAYER_SIZE <= SCREEN_HEIGHT and y >= 0:
             self.y = y
@@ -56,14 +55,14 @@ class Player(Sprite):
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_j] or pressed[pygame.K_LEFT]:
                 if self.x >= 0:
-                    self.x = self.x-1
+                    self.x = self.x-self.speed
             if pressed[pygame.K_l] or pressed[pygame.K_RIGHT]:
                 if self.x + PLAYER_SIZE <= SCREEN_WIDTH:
-                    self.x = self.x+1
+                    self.x = self.x+self.speed
             if pressed[pygame.K_i] or pressed[pygame.K_UP]:
-                self.angle += 1 % 360
+                self.angle += self.speed % 360
             if pressed[pygame.K_COMMA] or pressed[pygame.K_DOWN]:
-                self.angle -= 1 % 360
+                self.angle -= self.speed % 360
             if pressed[pygame.K_SPACE]:
                 self.update_movement()
 
@@ -76,8 +75,3 @@ class Player(Sprite):
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.screen.blit(self.image, (self.x, self.y))
 
-        if server and self.control:
-            params = data={'player': self.id(), 'x': self.x, 'y': self.y}
-            result = requests.get( server, params )
-            if result:
-                print(result.json())

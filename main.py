@@ -1,4 +1,5 @@
 import pygame
+import requests
 from player_objects.Player1 import Player1
 from player_objects.Player2 import Player2
 from player_objects.Player3 import Player3
@@ -17,11 +18,11 @@ pygame.display.set_caption("GoodLife")
 sprites = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 
-player_control = Player1(screen, RED, 0, 0, control=True)
+player_control = Player1(screen, RED, 0, 0, )
 sprites.add(player_control)
 
-player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
-sprites.add(player)
+player1 = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0, control=True )
+sprites.add(player1)
 
 player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2 )
 sprites.add(player)
@@ -40,7 +41,9 @@ sprites.add(bomb)
 enemies.add(bomb)
 
 # Set this to server, or None if you don't want to play with others
-server = 'http://127.0.0.1:5000'
+server = 'http://10.89.171.108:5000'
+
+clock = pygame.time.Clock()
 
 running = True
 while running:
@@ -62,5 +65,11 @@ while running:
 
     pygame.display.flip()
 
+    if server:
+        params = data={'player': player1.id(), 'x': player1.x, 'y': player1.y}
+        result = requests.get( server, params )
+        if result:
+            print(result.json())
+    clock.tick(60)
 
 pygame.quit()
