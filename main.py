@@ -78,7 +78,11 @@ while running:
         params = data={'player': active_player.id(), 'x': active_player.x, 'y': active_player.y}
         result = requests.get( server, params )
         if result:
-            print(result.json())
+            try:
+                print(result.json())
+            except:
+                print(result.text)
+
     clock.tick(60)
 
 pygame.quit()
