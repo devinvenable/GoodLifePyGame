@@ -1,4 +1,5 @@
 import pygame, math
+import requests
 from pygame.sprite import Sprite
 from config import WHITE, PLAYER_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -28,6 +29,9 @@ class Player(Sprite):
         self.angle = 0
         self.rect = pygame.Rect((self.x, self.y),(PLAYER_SIZE, PLAYER_SIZE))
 
+    def id(self):
+        return type(self).__name__
+
     def respawn(self):
         self.x = self.initial_x
         self.y = self.initial_y
@@ -46,6 +50,7 @@ class Player(Sprite):
             self.x = x
 
     def update(self):
+        from main import server
 
         if self.control:
             pressed = pygame.key.get_pressed()
@@ -70,3 +75,9 @@ class Player(Sprite):
 
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.screen.blit(self.image, (self.x, self.y))
+
+        if server and self.control:
+            params = data={'player': self.id(), 'x': self.x, 'y': self.y}
+            result = requests.get( server, params )
+            if result:
+                print(result.json())

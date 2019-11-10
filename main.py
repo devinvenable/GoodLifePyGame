@@ -6,7 +6,6 @@ from player_objects.Player4 import Player4
 from player_objects.Player5 import Player5
 from player_objects.Player6 import Player6
 from obstacles.Bomb import Bomb
-
 from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE,
                     SCREEN_HEIGHT, SCREEN_WIDTH, PLAYER_SIZE)
 
@@ -18,8 +17,8 @@ pygame.display.set_caption("GoodLife")
 sprites = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 
-player = Player1(screen, RED, 0, 0, control=True)
-sprites.add(player)
+player_control = Player1(screen, RED, 0, 0, control=True)
+sprites.add(player_control)
 
 player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
 sprites.add(player)
@@ -40,6 +39,9 @@ bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites.add(bomb)
 enemies.add(bomb)
 
+# Set this to server, or None if you don't want to play with others
+server = 'http://127.0.0.1:5000'
+
 running = True
 while running:
 
@@ -58,7 +60,7 @@ while running:
     screen.fill(BLACK)
     sprites.update()
 
-
     pygame.display.flip()
+
 
 pygame.quit()
