@@ -21,10 +21,10 @@ enemies = pygame.sprite.Group()
 player_control = Player1(screen, RED, 0, 0, )
 sprites.add(player_control)
 
-player1 = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0, control=True )
-sprites.add(player1)
+player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
+sprites.add(player)
 
-player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2 )
+player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2, control=True )
 sprites.add(player)
 
 player = Player4(screen, BLUE_GREEN, 0, SCREEN_HEIGHT-PLAYER_SIZE)
@@ -39,6 +39,9 @@ sprites.add(player)
 bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites.add(bomb)
 enemies.add(bomb)
+
+# We should only have one active, assumes this
+active_player = [x for x in sprites if x.control==True][0]
 
 # Set this to server, or None if you don't want to play with others
 server = 'http://10.89.171.108:5000'
@@ -66,7 +69,7 @@ while running:
     pygame.display.flip()
 
     if server:
-        params = data={'player': player1.id(), 'x': player1.x, 'y': player1.y}
+        params = data={'player': active_player.id(), 'x': active_player.x, 'y': active_player.y}
         result = requests.get( server, params )
         if result:
             print(result.json())
