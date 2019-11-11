@@ -1,4 +1,5 @@
 import pygame
+import os
 import requests
 from player_objects.Player1 import Player1
 from player_objects.Player2 import Player2
@@ -18,10 +19,10 @@ pygame.display.set_caption("GoodLife")
 sprites = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 
-player = Player1(screen, RED, 0, 0, control=True  )
+player = Player1(screen, RED, 0, 0  )
 sprites.add(player)
 
-player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
+player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0)
 sprites.add(player)
 
 player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2)
@@ -45,11 +46,17 @@ def get_player(name):
     # This function will return a player from the sprites list with matching name
     return [x for x in sprites if x.id()==name][0]
 
-# We should only have one active, assumes this
-active_player = [x for x in sprites if x.control == True][0]
+# Get active player from env variable
+aplayer = os.getenv('ACTIVE', 'Player1')
+active_player = get_player(aplayer)
+active_player.control=True
 
-# Set this to server, or None if you don't want to play with others
-server = 'http://192.168.0.208:5000'
+# Get server IP from env variable
+game_ip = os.getenv('GAME_IP', None)
+if game_ip:
+    server = f'http://{game_ip}:5000'
+else:
+    server = None
 
 clock = pygame.time.Clock()
 

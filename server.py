@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -31,4 +32,8 @@ def hello():
     return jsonify(others)
 
 if __name__ == "__main__":
-   app.run(host='10.89.171.108')
+    game_ip = os.getenv('GAME_IP', None)
+    if game_ip:
+        app.run(host='192.168.0.208')
+    else:
+        app.run()
