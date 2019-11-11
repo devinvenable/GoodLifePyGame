@@ -10,6 +10,7 @@ def hello():
     player = request.args.get('player', 'none')
     x = request.args.get('x', 'none')
     y = request.args.get('y', 'none')
+    r = request.args.get('r', 'none')
 
     if player:
         if player in players.keys():
@@ -18,7 +19,11 @@ def hello():
             if p['addr'] != request.remote_addr:
                 return "Sorry, that player is already active"
 
-        players[player] = {'addr': request.remote_addr, 'x':x, 'y':y}
+        players[player] = {'addr': request.remote_addr,
+                           'x':x,
+                           'y':y,
+                           'r':r
+                           }
 
     #print(players)
     others = {i: players[i] for i in players if i != player}

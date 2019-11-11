@@ -18,13 +18,13 @@ pygame.display.set_caption("GoodLife")
 sprites = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 
-player_control = Player1(screen, RED, 0, 0, )
-sprites.add(player_control)
+player = Player1(screen, RED, 0, 0, control=True  )
+sprites.add(player)
 
 player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0 )
 sprites.add(player)
 
-player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2, control=True )
+player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2)
 sprites.add(player)
 
 player = Player4(screen, BLUE_GREEN, 0, SCREEN_HEIGHT-PLAYER_SIZE)
@@ -49,7 +49,7 @@ def get_player(name):
 active_player = [x for x in sprites if x.control == True][0]
 
 # Set this to server, or None if you don't want to play with others
-server = 'http://10.89.171.108:5000'
+server = 'http://192.168.0.208:5000'
 
 clock = pygame.time.Clock()
 
@@ -78,9 +78,13 @@ while running:
 
     remote_check += 1
 
-    if server and (remote_check % 15==0):
+    if server and (remote_check % 1==0):
         remote_check=0
-        params = data={'player': active_player.id(), 'x': active_player.x, 'y': active_player.y}
+        params = data={'player': active_player.id(),
+                       'x': active_player.x,
+                       'y': active_player.y,
+                       'r': active_player.angle,
+                       }
         result = requests.get( server, params )
         if result:
             try:
@@ -88,8 +92,9 @@ while running:
                 for k, v in others.items():
                     print('here', k, v)
                     pl = get_player(k)
-                    pl.x = v['x']
-                    pl.y = v['y']
+                    pl.x = float(v['x'])
+                    pl.y = float(v['y'])
+                    pl.angle = float(v['r'])
             except:
                 print(result.text)
 
