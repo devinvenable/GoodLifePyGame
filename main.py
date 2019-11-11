@@ -40,8 +40,13 @@ bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites.add(bomb)
 enemies.add(bomb)
 
+
+def get_player(name):
+    # This function will return a player from the sprites list with matching name
+    return [x for x in sprites if x.id()==name][0]
+
 # We should only have one active, assumes this
-active_player = [x for x in sprites if x.control==True][0]
+active_player = [x for x in sprites if x.control == True][0]
 
 # Set this to server, or None if you don't want to play with others
 server = 'http://10.89.171.108:5000'
@@ -73,16 +78,21 @@ while running:
 
     remote_check += 1
 
-    if server and remote_check % 60:
+    if server and (remote_check % 15==0):
         remote_check=0
         params = data={'player': active_player.id(), 'x': active_player.x, 'y': active_player.y}
         result = requests.get( server, params )
         if result:
             try:
-                print(result.json())
+                others = result.json()
+                for k, v in others.items():
+                    print('here', k, v)
+                    pl = get_player(k)
+                    pl.x = v['x']
+                    pl.y = v['y']
             except:
                 print(result.text)
 
-    clock.tick(60)
+    clock.tick(30)
 
 pygame.quit()
