@@ -27,7 +27,7 @@ class Player(Sprite):
         self.initial_y = self.y = y
         self.angle = 0
         self.rect = pygame.Rect((self.x, self.y),(PLAYER_SIZE, PLAYER_SIZE))
-        self.speed = 12
+        self.speed = 24
 
     def id(self):
         return type(self).__name__
