@@ -18,6 +18,7 @@ pygame.display.set_caption("GoodLife")
 
 sprites = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
+others  = pygame.sprite.Group()
 
 player = Player1(screen, RED, 0, 0  )
 sprites.add(player)
@@ -41,7 +42,6 @@ bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 sprites.add(bomb)
 enemies.add(bomb)
 
-
 def get_player(name):
     # This function will return a player from the sprites list with matching name
     return [x for x in sprites if x.id()==name][0]
@@ -50,6 +50,12 @@ def get_player(name):
 aplayer = os.getenv('ACTIVE', 'Player1')
 active_player = get_player(aplayer)
 active_player.control=True
+
+for s in sprites:
+    if s.id() != active_player.id():
+        others.add(s)
+
+
 
 # Get server IP from env variable
 game_ip = os.getenv('GAME_IP', None)

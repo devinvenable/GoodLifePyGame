@@ -27,7 +27,7 @@ class Player(Sprite):
         self.initial_y = self.y = y
         self.angle = 0
         self.rect = pygame.Rect((self.x, self.y),(PLAYER_SIZE, PLAYER_SIZE))
-        self.speed = 12
+        self.speed = 24
 
     def id(self):
         return type(self).__name__
@@ -49,7 +49,6 @@ class Player(Sprite):
             self.x = x
 
     def update(self):
-        from main import server
 
         if self.control:
             pressed = pygame.key.get_pressed()
@@ -68,9 +67,12 @@ class Player(Sprite):
 
             self.rect = pygame.Rect((self.x, self.y), (PLAYER_SIZE, PLAYER_SIZE))
 
-            from main import enemies
+            from main import enemies, others
             if pygame.sprite.spritecollide(self, enemies, False):
                 self.respawn()
+
+            #if pygame.sprite.spritecollide(self, others, False):
+            #    print('hit something')
 
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.screen.blit(self.image, (self.x, self.y))

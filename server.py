@@ -34,6 +34,6 @@ def hello():
 if __name__ == "__main__":
     game_ip = os.getenv('GAME_IP', None)
     if game_ip:
-        app.run(host='192.168.0.208')
+        app.run(host='172.16.42.68')
     else:
         app.run()
