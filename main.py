@@ -12,6 +12,8 @@ from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE,
                     SCREEN_HEIGHT, SCREEN_WIDTH, PLAYER_SIZE)
 
 pygame.init()
+
+
 pygame.mixer.init()  ## For sound
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("GoodLife")
@@ -47,7 +49,7 @@ def get_player(name):
     return [x for x in sprites if x.id()==name][0]
 
 # Get active player from env variable
-aplayer = os.getenv('ACTIVE', 'Player1')
+aplayer = os.getenv('ACTIVE', 'Player3')
 active_player = get_player(aplayer)
 active_player.control=True
 
