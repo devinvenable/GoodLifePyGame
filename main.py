@@ -8,7 +8,7 @@ from player_objects.Player4 import Player4
 from player_objects.Player5 import Player5
 from player_objects.Player6 import Player6
 from obstacles.Bomb import Bomb
-from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE,
+from config import (RED, BLACK, GREEN, BLUE, BLUE_GREEN, YELLOW, PURPLE, ORANGE,
                     SCREEN_HEIGHT, SCREEN_WIDTH, PLAYER_SIZE)
 
 pygame.init()
@@ -23,7 +23,7 @@ others  = pygame.sprite.Group()
 player = Player1(screen, RED, 0, 0  )
 sprites.add(player)
 
-player = Player2(screen, YELLOW, SCREEN_WIDTH - PLAYER_SIZE, 0)
+player = Player2(screen, ORANGE, SCREEN_WIDTH - PLAYER_SIZE, 0)
 sprites.add(player)
 
 player = Player3(screen, BLUE, 0, (SCREEN_WIDTH-PLAYER_SIZE) / 2)
@@ -84,7 +84,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-    screen.fill(BLACK)
+    screen.fill(ORANGE)
     sprites.update()
 
     pygame.display.flip()
