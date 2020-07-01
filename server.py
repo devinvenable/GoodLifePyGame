@@ -32,8 +32,9 @@ def hello():
     return jsonify(others)
 
 if __name__ == "__main__":
-    game_ip = os.getenv('GAME_IP', None)
-    if game_ip:
-        app.run(host='172.16.42.68')
-    else:
-        app.run()
+    #game_ip = os.getenv('GAME_IP', None)
+    #if game_ip:
+    #    app.run(host='192.168.0.73')
+    #else:
+    #    app.run()
+    app.run(host='192.168.0.73')

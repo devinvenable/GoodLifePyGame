@@ -58,11 +58,13 @@ for s in sprites:
 
 
 # Get server IP from env variable
-#game_ip = os.getenv('GAME_IP', None)
-#if game_ip:
-#    server = f'http://{game_ip}:5000'
-#else:
-server = None
+# game_ip = os.getenv('GAME_IP', None)
+# if game_ip:
+#   server = f'http://{game_ip}:5000'
+# else:
+#    server = None
+
+server = f'http://192.168.0.73:5000'
 
 clock = pygame.time.Clock()
 
