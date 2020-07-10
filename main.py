@@ -41,8 +41,16 @@ player = Player6(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, (SCREEN_HEIGHT-PLAYER
 sprites.add(player)
 
 bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+bomb2 = Bomb(screen, BLUE_GREEN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2)
+bomb3 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/4)
+
 sprites.add(bomb)
+sprites.add(bomb2)
+sprites.add(bomb3)
+
 enemies.add(bomb)
+enemies.add(bomb2)
+enemies.add(bomb3)
 
 def get_player(name):
     # This function will return a player from the sprites list with matching name
@@ -59,14 +67,17 @@ for s in sprites:
 
 
 
-# Get server IP from env variable
-# game_ip = os.getenv('GAME_IP', None)
-# if game_ip:
-#   server = f'http://{game_ip}:5000'
-# else:
-#    server = None
 
-server = f'http://192.168.0.73:5000'
+# Get server IP from env variable
+#game_ip = os.getenv('GAME_IP', None)
+#if game_ip:
+#    server = f'http://{game_ip}:5000'
+#else:
+
+#server = f'http://192.168.0.73:5000'
+
+
+server = None
 
 clock = pygame.time.Clock()
 
@@ -88,12 +99,15 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-    screen.fill(ORANGE)
+    screen.fill(BLACK)
     sprites.update()
 
     pygame.display.flip()
 
     remote_check += 1
+
+    if server:
+        print('server variable is empty or non')
 
     if server and (remote_check % 1==0):
         remote_check=0
