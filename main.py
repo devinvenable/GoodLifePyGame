@@ -40,9 +40,9 @@ sprites.add(player)
 player = Player6(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, (SCREEN_HEIGHT-PLAYER_SIZE)/2)
 sprites.add(player)
 
-Bomb1 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-Bomb2 = Bomb(screen, BLUE_GREEN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2)
-Bomb3 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/4)
+Bomb1 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, bomb_name='Bomb1')
+Bomb2 = Bomb(screen, BLUE_GREEN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2, bomb_name='Bomb2')
+Bomb3 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/4, bomb_name='Bomb3')
 
 sprites.add(Bomb1)
 sprites.add(Bomb2)
