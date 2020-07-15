@@ -75,7 +75,7 @@ for s in sprites:
 #else:
 #    erver = None
 
-server = f'http://192.168.0.73:5000'
+server = f'http://192.168.0.118:5000'
 
 
 

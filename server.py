@@ -8,17 +8,20 @@ import random
 app = Flask(__name__)
 players = {}
 
-SCREEN_WIDTH=600
-SCREEN_HEIGHT=600
-PLAYER_SIZE=50
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+PLAYER_SIZE = 50
 SPEED = 22
 
+
 class bomb:
-    x = 0
-    y = 0
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
     r = 0
+
     def __str__(self):
         return f"x is {self.x}, y is {self.y}, r is {self.r}"
+
 
 bomb1 = bomb()
 bomb2 = bomb()
@@ -36,8 +39,14 @@ def update_movement(bomb):
         bomb.y = bomb.y
     if bomb.x + PLAYER_SIZE <= SCREEN_WIDTH and bomb.x >= 0:
         bomb.x = bomb.x
-
-
+    if bomb.x <= 50:
+        bomb.x = 50
+    elif bomb.x >= 570:
+        bomb.x = 570
+    if bomb.y <= 50:
+        bomb.y = 50
+    elif bomb.y >= 570:
+        bomb.y = 570
 @app.route("/")
 def hello():
     player = request.args.get('player', 'none')
@@ -53,12 +62,12 @@ def hello():
                 return "Sorry, that player is already active"
 
         players[player] = {'addr': request.remote_addr,
-                           'x':x,
-                           'y':y,
-                           'r':r
+                           'x': x,
+                           'y': y,
+                           'r': r
                            }
 
-    #print(players)
+    # print(players)
     others = {i: players[i] for i in players if i != player}
 
     # Add in a bomb position
@@ -67,10 +76,10 @@ def hello():
     update_movement(bomb3)
 
     others['Bomb1'] = {'addr': None,
-           'x': bomb1.x,
-           'y': bomb1.y,
-           'r': bomb1.r
-           }
+                       'x': bomb1.x,
+                       'y': bomb1.y,
+                       'r': bomb1.r
+                       }
 
     others['Bomb2'] = {'addr': None,
                        'x': bomb2.x,
@@ -83,13 +92,14 @@ def hello():
                        'y': bomb3.y,
                        'r': bomb3.r
                        }
-    #print(others)
+    # print(others)
     return jsonify(others)
 
+
 if __name__ == "__main__":
-    #game_ip = os.getenv('GAME_IP', None)
-    #if game_ip:
+    # game_ip = os.getenv('GAME_IP', None)
+    # if game_ip:
     #    app.run(host='192.168.0.73')
-    #else:
+    # else:
     #    app.run()
-    app.run(host='192.168.0.73')
+    app.run(host='192.168.0.118')
