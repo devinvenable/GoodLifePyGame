@@ -17,24 +17,14 @@ class Bomb(Player):
         self.counter = 0
         self.speed = 22
 
-    def update_movement(self ):
-
-        self.angle += random.randint(1,100) % 360
-        print(self.angle)
-        radians = math.radians(self.angle)
-        y = self.y + (self.speed * math.cos(radians))
-        x = self.x + (self.speed * math.sin(radians))
-
-        if y + PLAYER_SIZE <= SCREEN_HEIGHT and y >= 0:
-            self.y = y
-        if x + PLAYER_SIZE <= SCREEN_WIDTH and x >= 0:
-            self.x = x
 
     def update(self):
 
         self.counter += 1
         if self.counter >= self.count_target:
-            self.update_movement()
+
+            #self.update_movement()
+
             self.image = pygame.transform.rotate(self.original_image, self.angle)
             self.rect = pygame.Rect((self.x, self.y), (PLAYER_SIZE, PLAYER_SIZE))
             self.screen.blit(self.image, (self.x, self.y))

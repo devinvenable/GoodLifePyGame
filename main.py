@@ -40,17 +40,17 @@ sprites.add(player)
 player = Player6(screen, PURPLE, SCREEN_WIDTH-PLAYER_SIZE, (SCREEN_HEIGHT-PLAYER_SIZE)/2)
 sprites.add(player)
 
-bomb = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-bomb2 = Bomb(screen, BLUE_GREEN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2)
-bomb3 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/4)
+Bomb1 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+Bomb2 = Bomb(screen, BLUE_GREEN, SCREEN_WIDTH/3, SCREEN_HEIGHT/2)
+Bomb3 = Bomb(screen, PURPLE, SCREEN_WIDTH/2, SCREEN_HEIGHT/4)
 
-sprites.add(bomb)
-sprites.add(bomb2)
-sprites.add(bomb3)
+sprites.add(Bomb1)
+sprites.add(Bomb2)
+sprites.add(Bomb3)
 
-enemies.add(bomb)
-enemies.add(bomb2)
-enemies.add(bomb3)
+enemies.add(Bomb1)
+enemies.add(Bomb2)
+enemies.add(Bomb3)
 
 def get_player(name):
     # This function will return a player from the sprites list with matching name
@@ -73,11 +73,11 @@ for s in sprites:
 #if game_ip:
 #    server = f'http://{game_ip}:5000'
 #else:
+#    erver = None
 
-#server = f'http://192.168.0.73:5000'
+server = f'http://192.168.0.73:5000'
 
 
-server = None
 
 clock = pygame.time.Clock()
 

@@ -67,12 +67,10 @@ class Player(Sprite):
 
             self.rect = pygame.Rect((self.x, self.y), (PLAYER_SIZE, PLAYER_SIZE))
 
-            from main import enemies, others
+            from main import enemies
             if pygame.sprite.spritecollide(self, enemies, False):
                 self.respawn()
 
-            #if pygame.sprite.spritecollide(self, others, False):
-            #    print('hit something')
 
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.screen.blit(self.image, (self.x, self.y))
